@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:semanda2flutter1/widget/botones.widget.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -40,13 +41,11 @@ class _HomePageState extends State<HomePage> {
             child: Container(
               child: Column(
                 children: [
-                  Expanded(
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: _listaBotones()),
-                  ),
                   Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: _listaBotones()),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: _listaBotones2()),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -56,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                       children: _listaBontones4()),
                 ],
               ),
-              color: Colors.green,
+              color: Colors.black,
             ),
           ),
         ],
@@ -66,54 +65,48 @@ class _HomePageState extends State<HomePage> {
 
   _listaBotones() {
     return [
-      ElevatedButton(onPressed: () {}, child: Text("7")),
-      ElevatedButton(onPressed: () {}, child: Text("8")),
-      ElevatedButton(onPressed: () {}, child: Text("9")),
-      ElevatedButton(onPressed: () {}, child: Text("/")),
-      ElevatedButton(onPressed: () {}, child: Icon(Icons.replay)),
-      ElevatedButton(onPressed: () {}, child: Text("C"))
+      pintarBoton(metodo: () {}, componente: Text("7")),
+      pintarBoton(metodo: () {}, componente: Text("8")),
+      pintarBoton(metodo: () {}, componente: Text("9")),
+      pintarBoton(metodo: () {}, componente: Text("/")),
+      pintarBoton(metodo: () {}, componente: Icon(Icons.replay)),
+      pintarBoton(metodo: () {}, componente: Text("C")),
     ];
   }
 
   _listaBotones2() {
     return [
-      ElevatedButton(onPressed: () {}, child: Text("4")),
-      ElevatedButton(onPressed: () {}, child: Text("5")),
-      ElevatedButton(onPressed: () {}, child: Text("6")),
-      ElevatedButton(onPressed: () {}, child: Text("x")),
-      ElevatedButton(onPressed: () {}, child: Text("(")),
-      ElevatedButton(onPressed: () {}, child: Text(")"))
+      pintarBoton(metodo: () {}, componente: Text("4")),
+      pintarBoton(metodo: () {}, componente: Text("5")),
+      pintarBoton(metodo: () {}, componente: Text("6")),
+      pintarBoton(metodo: () {}, componente: Text("x")),
+      pintarBoton(metodo: () {}, componente: Text("(")),
+      pintarBoton(metodo: () {}, componente: Text(")")),
     ];
   }
 
   _listaBotones3() {
     return [
-      ElevatedButton(onPressed: () {}, child: Text("1")),
-      ElevatedButton(onPressed: () {}, child: Text("2")),
-      ElevatedButton(onPressed: () {}, child: Text("3")),
-      ElevatedButton(onPressed: () {}, child: Text("-")),
-      ElevatedButton(onPressed: () {}, child: Text("x²")),
-      ElevatedButton(onPressed: () {}, child: Text("√"))
+      pintarBoton(metodo: () {}, componente: Text("1")),
+      pintarBoton(metodo: () {}, componente: Text("2")),
+      pintarBoton(metodo: () {}, componente: Text("3")),
+      pintarBoton(metodo: () {}, componente: Text("-")),
+      pintarBoton(metodo: () {}, componente: Text("x²")),
+      pintarBoton(metodo: () {}, componente: Text("√")),
     ];
   }
 
   _listaBontones4() {
     return [
-      ElevatedButton(onPressed: () {}, child: Text("0")),
-      ElevatedButton(onPressed: () {}, child: Text(",")),
-      ElevatedButton(onPressed: () {}, child: Text("%")),
-      ElevatedButton(onPressed: () {}, child: Text("+")),
-      ElevatedButton(
-        onPressed: () {},
-        child: Container(
-          child: Row(
-            children: [
-              Text("="),
-            ],
-          ),
-          color: Colors.green,
-        ),
-      ),
+      pintarBoton(metodo: () {}, componente: Text("0")),
+      pintarBoton(metodo: () {}, componente: Text(",")),
+      pintarBoton(metodo: () {}, componente: Text("%")),
+      pintarBoton(metodo: () {}, componente: Text("+")),
+      pintarBoton(
+          metodo: () {},
+          componente: Text("="),
+          valorFlex: 3,
+          colorbuton: Colors.green),
     ];
   }
 }
