@@ -10,6 +10,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String _resultados = '0';
+  String _ingreso = '0';
+
+  nClik(String text) {
+    setState(() {
+      _ingreso += text;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,19 +28,19 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           Expanded(
-            flex: 5,
+            flex: 2,
             child: Container(
               child: Row(children: [
-                Text("Zona resultados"),
+                Text(_resultados),
               ]),
               color: Colors.blue,
             ),
           ),
           Expanded(
-            flex: 1,
+            flex: 2,
             child: Container(
               child: Row(children: [
-                Text("Zona de ingreso"),
+                Text(_ingreso),
               ]),
               color: Colors.red,
             ),
@@ -65,7 +74,11 @@ class _HomePageState extends State<HomePage> {
 
   _listaBotones() {
     return [
-      pintarBoton(metodo: () {}, componente: Text("7")),
+      pintarBoton(
+          metodo: () {
+            nClik("7");
+          },
+          componente: Text("7")),
       pintarBoton(metodo: () {}, componente: Text("8")),
       pintarBoton(metodo: () {}, componente: Text("9")),
       pintarBoton(metodo: () {}, componente: Text("/")),
@@ -105,7 +118,7 @@ class _HomePageState extends State<HomePage> {
       pintarBoton(
           metodo: () {},
           componente: Text("="),
-          valorFlex: 3,
+          valorFlex: 2,
           colorbuton: Colors.green),
     ];
   }

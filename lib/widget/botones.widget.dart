@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 Widget pintarBoton(
-    {required dynamic metodo,
+    {required metodo,
     int valorFlex = 1,
     required Widget componente,
     dynamic colorbuton = Colors.blue}) {
