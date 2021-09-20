@@ -98,6 +98,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _resultados = '0';
       _ingreso = '';
+      _error = '';
     });
   }
 
@@ -105,27 +106,50 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       if (_ingreso.length >= 1) {
         _ingreso = _ingreso.substring(0, _ingreso.length - 1);
+        _error = '';
       }
       if (_ingreso.length == 0) {
         _ingreso = '0';
+        _error = '';
       }
     });
   }
 
   calcular(String text) {
-    _error = '';
     if (text == "=") {
-      Parser p = Parser();
-      Expression exp = p.parse(_ingreso);
-      ContextModel cm = ContextModel();
-
       setState(() {
-        _resultados = _ingreso;
-        _ingreso = exp.evaluate(EvaluationType.REAL, cm).toString();
+        Parser a = Parser();
+        try {
+          if (_ingreso.contains('√')) {
+            _ingreso = _ingreso.replaceAll('√', 'sqrt');
+          }
+          Expression exp = a.parse(_ingreso);
+          _resultados = _ingreso;
+          ContextModel cm = ContextModel();
+          _ingreso = '${exp.evaluate(EvaluationType.REAL, cm)}';
+
+          if (_ingreso.contains('sqrt')) {
+            _ingreso = _ingreso.replaceAll('sqrt', '√');
+          }
+          if (_ingreso.contains('x^')) {
+            _ingreso = _ingreso + "^";
+          }
+        } on FormatException {
+          _error = "Error de Sitanxis";
+        } on Exception catch (e) {
+          _error = "Error de Sitanxis $e";
+        } catch (e) {
+          _error = "Error de Sitanxis";
+        }
       });
     }
     if (_ingreso == 'Infinity') {
-      _error = 'Esta dividiendo por cero';
+      _error = 'Verifica tus valores ingresados por favor';
+      _ingreso = 'Error de Sitanxis';
+    }
+    if (_ingreso == 'NaN') {
+      _error = 'Verifica tus valores ingresados por favor';
+      _ingreso = 'Error de Sitanxis';
     }
   }
 
@@ -223,12 +247,12 @@ class _HomePageState extends State<HomePage> {
           componente: Text("-")),
       pintarBoton(
           metodo: () {
-            nClik("p");
+            nClik("x^");
           },
           componente: Text("x²")),
       pintarBoton(
           metodo: () {
-            nClik("r");
+            nClik("√");
           },
           componente: Text("√")),
     ];
