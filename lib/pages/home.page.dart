@@ -19,7 +19,21 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.list),
+              onPressed: () => print('hi on menu icon'),
+            );
+          },
+        ),
         title: Text("Calculadora - John Alejandro E."),
+        actions: <Widget>[
+          IconButton(
+            icon: new Icon(Icons.merge_type),
+            onPressed: () => print('hi on icon action'),
+          ),
+        ],
       ),
       body: Column(
         children: [
