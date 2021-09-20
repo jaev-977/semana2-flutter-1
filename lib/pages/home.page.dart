@@ -123,23 +123,25 @@ class _HomePageState extends State<HomePage> {
           if (_ingreso.contains('√')) {
             _ingreso = _ingreso.replaceAll('√', 'sqrt');
           }
+
           Expression exp = a.parse(_ingreso);
           _resultados = _ingreso;
           ContextModel cm = ContextModel();
+          if (_ingreso.contains('x^')) {
+            _ingreso = _ingreso.replaceAll('x²', '*');
+            _ingreso = _ingreso + _ingreso[0];
+          }
           _ingreso = '${exp.evaluate(EvaluationType.REAL, cm)}';
 
           if (_ingreso.contains('sqrt')) {
             _ingreso = _ingreso.replaceAll('sqrt', '√');
           }
-          if (_ingreso.contains('x^')) {
-            _ingreso = _ingreso + "^";
-          }
         } on FormatException {
-          _error = "Error de Sitanxis";
+          _error = "Error de Sitanxis/";
         } on Exception catch (e) {
           _error = "Error de Sitanxis $e";
         } catch (e) {
-          _error = "Error de Sitanxis";
+          _error = "Error de Sitanxis_";
         }
       });
     }
