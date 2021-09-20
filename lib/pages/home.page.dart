@@ -130,7 +130,9 @@ class _HomePageState extends State<HomePage> {
           Expression exp = a.parse(_ingreso);
           _resultados = _ingreso;
           _ingreso = '${exp.evaluate(EvaluationType.REAL, cm)}';
-
+          if (_ingreso.endsWith('.0')) {
+            _ingreso = _ingreso.substring(0, _ingreso.length - 2);
+          }
           if (_ingreso.contains('sqrt')) {
             _ingreso = _ingreso.replaceAll('sqrt', '√');
             if (_ingreso == '0') {
@@ -164,6 +166,27 @@ class _HomePageState extends State<HomePage> {
       _ingreso = _ingreso + "^";
 
       _error = 'Elevado a $text';
+    }
+  }
+
+  porcentaje(String text) {
+    var fin = '';
+    var puesto = 0;
+    for (int i = _ingreso.length - 1; i >= 0; i--) {
+      //Determina si es un numero
+      if (double.tryParse(_ingreso[i]) != null || _ingreso[i] == '.') {
+        fin = _ingreso[i] + fin;
+      } else {
+        puesto = i;
+        break;
+      }
+    }
+    var porciento = double.parse(fin) / 100;
+    if (_ingreso == '0') {
+      _ingreso = "$porciento";
+      _error = 'verifica tus matematicas basicas';
+    } else {
+      _ingreso = _ingreso.substring(0, puesto + 1) + porciento.toString();
     }
   }
 
@@ -281,12 +304,12 @@ class _HomePageState extends State<HomePage> {
           componente: Text("0")),
       pintarBoton(
           metodo: () {
-            nClik(",");
+            nClik(".");
           },
-          componente: Text(",")),
+          componente: Text(".")),
       pintarBoton(
           metodo: () {
-            nClik("%");
+            porcentaje("%");
           },
           componente: Text("%")),
       pintarBoton(
