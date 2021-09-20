@@ -122,19 +122,20 @@ class _HomePageState extends State<HomePage> {
         try {
           if (_ingreso.contains('√')) {
             _ingreso = _ingreso.replaceAll('√', 'sqrt');
+            if (_resultados == 'sqrt0') {
+              _error = 'la raiz siempre va a ser 0';
+            }
           }
-
+          ContextModel cm = ContextModel();
           Expression exp = a.parse(_ingreso);
           _resultados = _ingreso;
-          ContextModel cm = ContextModel();
-          if (_ingreso.contains('x^')) {
-            _ingreso = _ingreso.replaceAll('x²', '*');
-            _ingreso = _ingreso + _ingreso[0];
-          }
           _ingreso = '${exp.evaluate(EvaluationType.REAL, cm)}';
 
           if (_ingreso.contains('sqrt')) {
             _ingreso = _ingreso.replaceAll('sqrt', '√');
+            if (_ingreso == '0') {
+              _error = 'la raiz siempre va a ser 0';
+            }
           }
         } on FormatException {
           _error = "Error de Sitanxis/";
@@ -152,6 +153,17 @@ class _HomePageState extends State<HomePage> {
     if (_ingreso == 'NaN') {
       _error = 'Verifica tus valores ingresados por favor';
       _ingreso = 'Error de Sitanxis';
+    }
+  }
+
+  potencia(String text) {
+    if (_ingreso == '0') {
+      _ingreso = "0^";
+      _error = 'verifica tus matematicas basicas';
+    } else {
+      _ingreso = _ingreso + "^";
+
+      _error = 'Elevado a $text';
     }
   }
 
@@ -249,7 +261,7 @@ class _HomePageState extends State<HomePage> {
           componente: Text("-")),
       pintarBoton(
           metodo: () {
-            nClik("x^");
+            potencia("x^");
           },
           componente: Text("x²")),
       pintarBoton(
